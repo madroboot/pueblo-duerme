@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redención Nocturna</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- SDK de Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+</head>
+<body>
+
+    <div id="main-container">
+
+        <!-- Pantalla de Inicio -->
+        <div id="home-screen" class="screen active">
+            <h1 class="game-title">Redención Nocturna</h1>
+            <p class="game-subtitle">La noche es oscura y alberga horrores</p>
+            <div class="menu-buttons">
+                <button id="local-moderator-btn" class="btn btn-primary">Moderador Local</button>
+                <button id="online-multiplayer-btn" class="btn btn-primary">Multijugador Online</button>
+            </div>
+        </div>
+
+        <!-- Pantalla de Configuración Local -->
+        <div id="local-setup-screen" class="screen">
+            <h2>Configuración de Partida Local</h2>
+            <div id="player-inputs">
+                <input type="text" class="player-name-input" placeholder="Nombre del Jugador 1">
+                <input type="text" class="player-name-input" placeholder="Nombre del Jugador 2">
+                <input type="text" class="player-name-input" placeholder="Nombre del Jugador 3">
+                <input type="text" class="player-name-input" placeholder="Nombre del Jugador 4">
+            </div>
+            <button id="add-player-btn" class="btn btn-secondary">Añadir Jugador</button>
+            <button id="start-local-game-btn" class="btn btn-primary">Comenzar Partida</button>
+            <button class="btn btn-back" data-target="home-screen">Volver</button>
+        </div>
+
+        <!-- Menú Multijugador Online -->
+        <div id="online-menu-screen" class="screen">
+            <h2>Multijugador Online</h2>
+            <input type="text" id="online-player-name" class="player-name-input" placeholder="Introduce tu nombre">
+            <div class="menu-buttons">
+                <button id="create-lobby-btn" class="btn btn-primary">Crear Lobby Privado</button>
+                <button id="join-lobby-btn" class="btn btn-primary">Unirse a Lobby Privado</button>
+                <button id="find-public-game-btn" class="btn btn-primary" disabled>Buscar Partida Pública</button>
+            </div>
+             <button class="btn btn-back" data-target="home-screen">Volver</button>
+        </div>
+
+        <!-- Pantalla de Lobby -->
+        <div id="lobby-screen" class="screen">
+            <h2>Lobby de la Partida</h2>
+            <p>Código del Lobby: <strong id="lobby-code">---</strong></p>
+            <p>Esperando jugadores... <span id="player-count">1</span>/10</p>
+            <ul id="lobby-player-list"></ul>
+            <p id="lobby-status-text">La partida comenzará cuando el lobby esté lleno (6-10 jugadores).</p>
+            <div class="loader"></div>
+             <button class="btn btn-back" data-target="online-menu-screen">Salir del Lobby</button>
+        </div>
+
+        <!-- Pantalla Principal del Juego -->
+        <div id="game-screen" class="screen">
+            <div id="game-board">
+                <div id="info-panel">
+                    <h2 id="phase-title">La Noche Cae</h2>
+                    <p id="phase-instruction">Realiza tu acción</p>
+                    <div id="timer">20</div>
+                    <div id="role-info">
+                        <h3>Tu Rol: <span id="player-role">---</span></h3>
+                        <p id="role-goal">Tu objetivo: ---</p>
+                        <p id="role-description">---</p>
+                        <div id="role-counters"></div>
+                    </div>
+                </div>
+                <div id="players-circle">
+                    <!-- Los jugadores se añadirán dinámicamente aquí -->
+                </div>
+            </div>
+            <div id="game-chat-container" style="display: none;">
+                <h3>Chat del Pueblo</h3>
+                <div id="chat-messages"></div>
+                <input type="text" id="chat-input" placeholder="Escribe un mensaje...">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal para notificaciones, votaciones, etc. -->
+    <div id="modal-overlay" class="hidden">
+        <div id="modal-content">
+            <h3 id="modal-title">Notificación</h3>
+            <p id="modal-text">Este es un mensaje de ejemplo.</p>
+            <div id="modal-buttons">
+                <button id="modal-close-btn" class="btn btn-secondary">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="roles.js"></script>
+    <script src="app.js"></script>
+    <script src="network.js"></script>
+</body>
+</html>

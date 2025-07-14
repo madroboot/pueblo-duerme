@@ -1,0 +1,347 @@
+/* --- RESET Y CONFIGURACIÓN GENERAL --- */
+:root {
+    --bg-color: #1a1a1d;
+    --primary-color: #2b2d42;
+    --secondary-color: #8d99ae;
+    --accent-color: #c3073f;
+    --text-color: #edf2f4;
+    --text-muted-color: #a0a0a0;
+    --font-title: 'Cinzel', serif;
+    --font-body: 'Lato', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#main-container {
+    width: 100%;
+    max-width: 500px;
+    height: 100vh;
+    max-height: 900px;
+    background-color: var(--primary-color);
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    position: relative;
+}
+
+/* --- PANTALLAS Y TRANSICIONES --- */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- ELEMENTOS COMUNES --- */
+h1, h2, h3 {
+    font-family: var(--font-title);
+    color: var(--text-color);
+}
+
+.game-title {
+    font-size: 3rem;
+    color: var(--accent-color);
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.game-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted-color);
+    margin-bottom: 2rem;
+}
+
+.btn {
+    font-family: var(--font-title);
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    margin: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    box-shadow: 0 4px 15px rgba(195, 7, 63, 0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(195, 7, 63, 0.6);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background-color: #a7b4c9;
+}
+
+.btn-back {
+    background: none;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}
+
+.player-name-input {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--secondary-color);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0.5rem 0;
+    text-align: center;
+    width: 80%;
+}
+
+/* --- PANTALLA DE JUEGO --- */
+#game-board {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#info-panel {
+    width: 60%;
+    max-width: 220px;
+    aspect-ratio: 1 / 1;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 2px solid var(--secondary-color);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    z-index: 10;
+}
+
+#phase-title {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+#phase-instruction {
+    color: var(--text-muted-color);
+    margin-bottom: 1rem;
+}
+
+#timer {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#role-info {
+    font-size: 0.8rem;
+    margin-top: 1rem;
+}
+
+#role-counters {
+    margin-top: 5px;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+#players-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.player-slot {
+    position: absolute;
+    width: 70px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.player-slot:hover {
+    transform: scale(1.1);
+}
+
+.player-slot.targeted {
+    filter: drop-shadow(0 0 10px var(--accent-color));
+}
+
+.player-avatar {
+    width: 50px;
+    height: 50px;
+    background-color: var(--secondary-color);
+    border: 2px solid var(--text-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-family: var(--font-title);
+}
+
+.player-slot.dead .player-avatar {
+    background-color: #333;
+    filter: grayscale(1);
+}
+
+.player-slot.dead .player-name {
+    text-decoration: line-through;
+    color: var(--text-muted-color);
+}
+
+.player-name {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.player-role-indicator {
+    font-size: 0.7rem;
+    color: var(--accent-color);
+}
+
+/* --- CHAT --- */
+#game-chat-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35%;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-top: 1px solid var(--secondary-color);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    padding-right: 5px;
+}
+
+#chat-input {
+    width: 100%;
+    padding: 8px;
+    background: var(--bg-color);
+    border: 1px solid var(--secondary-color);
+    color: var(--text-color);
+    border-radius: 5px;
+}
+
+/* --- MODAL --- */
+#modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#modal-overlay.hidden {
+    display: none;
+}
+
+#modal-content {
+    background-color: var(--primary-color);
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid var(--secondary-color);
+    text-align: center;
+    max-width: 90%;
+}
+
+#modal-buttons {
+    margin-top: 1.5rem;
+}
+
+/* --- LOADER --- */
+.loader {
+    border: 4px solid var(--secondary-color);
+    border-top: 4px solid var(--accent-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-top: 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 500px) {
+    #main-container {
+        border-radius: 0;
+        height: 100vh;
+        max-height: 100vh;
+    }
+    .game-title {
+        font-size: 2.5rem;
+    }
+    .player-slot {
+        width: 60px;
+        height: 70px;
+    }
+    .player-avatar {
+        width: 45px;
+        height: 45px;
+    }
+    .player-name {
+        font-size: 0.8rem;
+    }
+}

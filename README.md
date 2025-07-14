@@ -1,1 +1,16 @@
-# pueblo-duerme
+Redención Nocturna - Aplicación WebBienvenido a "Redención Nocturna", una aplicación web para jugar al popular juego de roles ocultos, similar a Mafia o Werewolf. Esta aplicación permite jugar tanto en persona con un único moderador como online con amigos de forma remota.CaracterísticasDos Modos de Juego:Moderador Local: Ideal para grupos que juegan en el mismo lugar. Un solo dispositivo actúa como tablero digital, gestionado por un moderador que conoce todos los roles.Multijugador Online: Juega de forma remota con 6 a 10 jugadores. Crea lobbies privados, únete con un código o busca una partida pública. Incluye chat en tiempo real y sistema de votación.Roles Detallados: Múltiples roles con habilidades únicas (Mafia, Veterano, Médico, Payaso, Vampiros, Bruja, Escort, Guardaespaldas, Sheriff).Fases de Juego Clásicas: Fases de Noche para acciones secretas y fases de Día para debate y eliminación.Resolución de Acciones por Prioridad: Un sistema robusto asegura que las acciones nocturnas se resuelvan en el orden correcto para evitar conflictos.Diseño Atmosférico: Una interfaz oscura y optimizada para dispositivos móviles.Pila TecnológicaFrontend: HTML5, CSS3, JavaScript (Vanilla JS)Backend & Realtime: Firebase Realtime DatabaseConfiguración del ProyectoPara poder ejecutar el modo "Multijugador Online", necesitas configurar tu propio proyecto de Firebase.Pasos para configurar Firebase:Crear un Proyecto en Firebase:Ve a la Consola de Firebase.Haz clic en "Añadir proyecto" y sigue los pasos para crear un nuevo proyecto.Registrar tu Aplicación Web:Dentro de tu proyecto en la consola de Firebase, haz clic en el icono de web (</>) para añadir una aplicación web.Dale un apodo a tu app y haz clic en "Registrar aplicación".Obtener las Credenciales (firebaseConfig):Después de registrar la app, Firebase te mostrará un objeto de configuración firebaseConfig. Se verá algo así:const firebaseConfig = {
+  apiKey: "AIzaSy...",
+  authDomain: "tu-proyecto.firebaseapp.com",
+  databaseURL: "https://tu-proyecto.firebaseio.com",
+  projectId: "tu-proyecto",
+  storageBucket: "tu-proyecto.appspot.com",
+  messagingSenderId: "...",
+  appId: "..."
+};
+Copia este objeto completo.Añadir las Credenciales al Proyecto:Abre el archivo network.js.Busca el comentario que dice // PEGA AQUÍ TU OBJETO DE CONFIGURACIÓN DE FIREBASE.Pega el objeto firebaseConfig que copiaste en el paso anterior.Configurar la Base de Datos en Tiempo Real:En la consola de Firebase, ve a la sección "Realtime Database" (Base de datos en tiempo real).Haz clic en "Crear base de datos".Elige una ubicación para tu base de datos.Inicia en modo de prueba. Esto permitirá leer y escribir en la base de datos sin necesidad de configurar la autenticación, lo cual es ideal para empezar. Las reglas se verán así:{
+  "rules": {
+    ".read": "true",
+    ".write": "true"
+  }
+}
+¡Importante! El modo de prueba solo dura 30 días. Para un uso a largo plazo, deberás configurar reglas de seguridad más estrictas.Desplegar (Opcional):Este proyecto está estructurado para un despliegue sencillo en servicios como GitHub Pages. Simplemente sube los archivos index.html, style.css, app.js, network.js y roles.js a tu repositorio y activa GitHub Pages.¡Y listo! Con estos pasos, tu aplicación "Redención Nocturna" estará completamente funcional.
